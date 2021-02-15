@@ -1,8 +1,8 @@
-package vienpham.core_java.common.animal.mammal;
+package vienpham.core_java.common.animal.marine_mammal;
 
 import vienpham.core_java.common.ecosystem.EcosystemType;
 
-public class NorthernFurSeal extends Carnivora {
+public class NorthernFurSeal extends MarineMammal {
 /* ************************ VARIABLES, GETTERS AND SETTERS SECTION ********************************
  * Variables with getters and setters
  * Static variables first, others organized by state
@@ -26,9 +26,11 @@ public class NorthernFurSeal extends Carnivora {
 		ADULT_MALE_MIN_WEIGHT =  386; 
 		ADULT_MALE_MAX_WEIGHT = 606; 
 		
-		setMaxRunningSpeed(15);
+		setMaxSwimmingSpeed(15); 
 		
-		prey.add("oceanic fish"); 
+		prey.add("tuna"); 
+		prey.add("rockfish"); 
+		prey.add("herring"); 
 		prey.add("squid") ;
 		
 		setEcosystem(EcosystemType.PELAGIC_OCEAN);
@@ -62,6 +64,9 @@ public class NorthernFurSeal extends Carnivora {
 	@Override 
 	// About four months on this cycle, the pups wean from their mothers. 
 	public void eat() {
+		if (getAge() == 0 && (preyCaught == null || preyCaught.isEmpty()) && Math.random() > 0.4 )
+			preyCaught = "baby tuna";
+		super.eat();
 	}
 	
 	@Override 
@@ -69,6 +74,17 @@ public class NorthernFurSeal extends Carnivora {
 	 * Fur seals sleep in water most of the time in a lateralized posture on the side while they paddle with only one front flipper to maintain the position
 	 */
 	public void sleep() {
+		System.out.println(getExtenedType() + " sleep in water most of the time in a lateralized posture on the side while they paddle with only one front flipper to maintain the position.");
+		while (getHealth() < 4) {
+			System.out.print(getHealth() + " ");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			changeHealth(1);
+		}
+		System.out.println(getHealth() + "\n");
 	}
 	
 	@Override 
@@ -78,8 +94,20 @@ public class NorthernFurSeal extends Carnivora {
 	 *  with typical dives reaching just 200 feet. 
 	 *  Their maximum dive depth has been observed to reach about 600 feet.
 	 */
-	public void move() {	
+	public void move() {
+		if (isFastSwimming()) {
+			super.move();
+			changeHealth(-3);
+		} else {
+			//Fur seals may swim by themselves or gather in small groups.
+			System.out.println(getExtenedType() + " swim gather in small groups.");
+			changeHealth(-1);
+		}
 	}
+	
+	/*
+	 * Fur seals feed mainly at night and may dive to depths of 600 feet (180 m) in search of small schooling fish and squid.
+	 */
 	
 	// Mammal,  Bird, Fish or Reptile method overrides
 	// Support interface

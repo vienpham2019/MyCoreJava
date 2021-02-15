@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import vienpham.core_java.common.animal.Animal;
 import vienpham.core_java.common.animal.Sex;
-import vienpham.core_java.common.animal.mammal.Mammal;
+import vienpham.core_java.common.animal.marine_mammal.MarineMammal;
 import vienpham.core_java.common.ecosystem.EcosystemType;
 
 public class GreateWhiteShark extends Fish {
@@ -104,7 +104,7 @@ public class GreateWhiteShark extends Fish {
 
 	@Override
 	/*
-	 * The oceanic whitetip shark is one of the shark species that never stops
+	 * The greate white shark is one of the shark species that never stops
 	 * moving. Because they cannot pump water across their gills, they must
 	 * constantly swim forward with their mouths slightly open in order to obtain
 	 * sufficient oxygen from the water.
@@ -120,7 +120,7 @@ public class GreateWhiteShark extends Fish {
 		}
 	}
 
-	// The oceanic whitetip shark is viviparous with litters of 5 to 15 pups which
+	// The greate white shark is viviparous with litters of 5 to 15 pups which
 	// are born at a length of 65 to 75 cm (26 to 30 in)
 	// Overloading.
 	public List<GreateWhiteShark> reproduce(int number) {
@@ -163,7 +163,7 @@ public class GreateWhiteShark extends Fish {
 		Animal target = findPrey(nearbyAnimals); 
 
 		if(target != null) {
-			changeHealth(-3); 
+			changeHealth(-2); 
 			try {
 				Thread.sleep(700);
 			} catch (InterruptedException e) {
@@ -176,10 +176,10 @@ public class GreateWhiteShark extends Fish {
 				/*
 				 * sharks only needs to eat anywhere between 0.5 to 3 percent of its body weight a day.
 				 */
-				System.out.println("health: " + getHealth());
 
 				if(target.getWeight() > getWeight() * 0.3) changeHealth(10); 
 				else changeHealth(5); 
+				System.out.println("health: " + getHealth());
 			}
 			eat();
 		}
@@ -188,7 +188,7 @@ public class GreateWhiteShark extends Fish {
 
 	// Overload
 	/*
-	 * Juvenile white sharks predominantly prey on fish, including other
+	 * Juvenile greate white sharks predominantly prey on fish, including other
 	 * elasmobranchs. Their jaw cartilage mineralizes enough to withstand the impact
 	 * of biting into larger prey species.
 	 * 
@@ -203,7 +203,7 @@ public class GreateWhiteShark extends Fish {
 		for (Animal animal : nearbyAnimals) {
 			for (String preyType : prey) {
 				if (getAge() < MATURITY) {
-					if (!(animal instanceof Mammal)) {
+					if (!(animal instanceof MarineMammal)) {
 
 						if (animal.getAge() > 5 && animal.getType().contains(preyType)) {
 							target = animal; 
@@ -218,7 +218,7 @@ public class GreateWhiteShark extends Fish {
 				} else {
 					if(animal.getType().contains(preyType)) {
 						if(target == null) target = animal; 
-						if(animal instanceof Mammal) {
+						if(animal instanceof MarineMammal) {
 							target = animal; 
 							break animalLoop; 
 						}
@@ -252,10 +252,9 @@ public class GreateWhiteShark extends Fish {
 				if(age > MATURITY) probability -= 0.3; 
 				else probability -= 0.1; 
 				
-				if(target.getExtenedType().contains("baby")) probability -= 0.5;
+				if(target.getExtenedType().contains("baby")) probability -= 0.6;
 				else if(target.getExtenedType().contains("juvenile")) probability -= 0.3;
 				else probability -= 0.2;
-				
 				
 			}else {
 				probability = 0; 

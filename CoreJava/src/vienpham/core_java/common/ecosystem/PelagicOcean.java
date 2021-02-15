@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import vienpham.core_java.common.animal.*;
 import vienpham.core_java.common.animal.fish.*;
 import vienpham.core_java.common.animal.mammal.*;
+import vienpham.core_java.common.animal.marine_mammal.NorthernFurSeal;
 import vienpham.core_java.lesson_09.dao.AnimalDAO;
 import vienpham.core_java.lesson_09.dao.AnimalDaoFactory;
 import vienpham.core_java.lesson_09.dao.DaoFactory;

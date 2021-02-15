@@ -15,7 +15,7 @@ import java.util.List;
 
 import vienpham.core_java.common.animal.*;
 import vienpham.core_java.common.animal.fish.*;
-import vienpham.core_java.common.animal.mammal.NorthernFurSeal;
+import vienpham.core_java.common.animal.marine_mammal.NorthernFurSeal;
 import vienpham.core_java.common.ecosystem.EcosystemType;
 
 class RdbmsAnimalDAO implements AnimalDAO {
