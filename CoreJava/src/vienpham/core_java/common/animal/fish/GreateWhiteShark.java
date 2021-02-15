@@ -239,12 +239,23 @@ public class GreateWhiteShark extends Fish {
 			System.out.println(this.getExtenedType() + " has not found food yet!");
 			return false; 
 		}else {
-			double probability = Math.random(); 
-			if(
-				(target.getAge() > target.getMaxAge()) || 
-				(target.getExtenedType().contains("baby") && probability > .1) || 
-				(target.getExtenedType().contains("juvenile") && probability > .3) || 
-				probability > .5 ) {
+			double probability = 1;
+			int age = getAge(); 
+			if(target.getAge() <= target.getMaxAge()) {
+				
+				if(age > MATURITY) probability -= 0.3; 
+				else probability -= 0.1; 
+				
+				if(target.getExtenedType().contains("baby")) probability -= 0.5;
+				else if(target.getExtenedType().contains("juvenile")) probability -= 0.3;
+				else probability -= 0.2;
+				
+				
+			}else {
+				probability = 0; 
+			}
+			
+			if(Math.random() > probability) {
 				
 				System.out.println(this+ " caught a " + target );
 				preyCaught = preyFound; 

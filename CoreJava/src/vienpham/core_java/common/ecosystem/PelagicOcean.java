@@ -91,10 +91,9 @@ public class PelagicOcean extends Ecosystem {
 	}
 	
 	public void greateWhiteSharkAreHungry() {
-		GreateWhiteShark shark = new GreateWhiteShark(28); 
+		GreateWhiteShark shark = new GreateWhiteShark(12); 
 		
 		shark.move();
-		findNearbyAnimals(); 
 		
 		Thread t = new Thread(new HuntingThread(shark , nearbyAnimals)); 
 		t.start();
