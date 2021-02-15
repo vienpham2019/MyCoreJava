@@ -162,9 +162,8 @@ public class GreateWhiteShark extends Fish {
 		// find prey
 		Animal target = findPrey(nearbyAnimals); 
 
-		changeHealth(-1); 
 		if(target != null) {
-			
+			changeHealth(-3); 
 			try {
 				Thread.sleep(700);
 			} catch (InterruptedException e) {
@@ -174,6 +173,13 @@ public class GreateWhiteShark extends Fish {
 			// catch prey
 			if(catchPrey(target)) {
 				nearbyAnimals.remove(target);
+				/*
+				 * sharks only needs to eat anywhere between 0.5 to 3 percent of its body weight a day.
+				 */
+				System.out.println("health: " + getHealth());
+
+				if(target.getWeight() > getWeight() * 0.3) changeHealth(10); 
+				else changeHealth(5); 
 			}
 			eat();
 		}

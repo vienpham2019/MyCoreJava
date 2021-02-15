@@ -91,7 +91,7 @@ public class PelagicOcean extends Ecosystem {
 	}
 	
 	public void greateWhiteSharkAreHungry() {
-		GreateWhiteShark shark = new GreateWhiteShark(12); 
+		GreateWhiteShark shark = new GreateWhiteShark(30); 
 		
 		shark.move();
 		
