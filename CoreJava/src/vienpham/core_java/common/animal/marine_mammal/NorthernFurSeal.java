@@ -1,5 +1,10 @@
 package vienpham.core_java.common.animal.marine_mammal;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import vienpham.core_java.common.animal.Sex;
 import vienpham.core_java.common.ecosystem.EcosystemType;
 
 public class NorthernFurSeal extends MarineMammal {
@@ -7,7 +12,9 @@ public class NorthernFurSeal extends MarineMammal {
  * Variables with getters and setters
  * Static variables first, others organized by state
  */
-
+	private boolean isSwimming = false;
+	public boolean getIsSwimming(){return isSwimming; }
+	public void setIsSwimming(boolean inS){ isSwimming = inS; } 
 
 /* ********************* CONSTRUCTORS AND INITIALZATION BLOCKS SECTION ****************************
  * Constructors and initialization blocks
@@ -100,10 +107,44 @@ public class NorthernFurSeal extends MarineMammal {
 			changeHealth(-3);
 		} else {
 			//Fur seals may swim by themselves or gather in small groups.
-			System.out.println(getExtenedType() + " swim gather in small groups.");
+			double posibleOnLand = 0.6; 
+			if(getAge() < 2) posibleOnLand += 0.1; 
+			if(Math.random() > posibleOnLand) {
+				setIsSwimming(false); 
+				System.out.println(getExtenedType() + " move slowly on land.");
+			}else {
+				setIsSwimming(true); 
+				System.out.println(getExtenedType() + " swim gather in small groups.");
+			}
 			changeHealth(-1);
 		}
 	}
+	
+	@Override 
+	/*
+	 * 	Males fast during the breeding season, and can lose 20 percent of their body weight during the 3 – 4 month period. 
+	 *	Females return to the rookeries in late June to late July and give birth to a single pup, with most pups born in early July. 
+	 * 	Northern fur seals mate on land usually within 11 day of giving birth.
+	 */
+	public NorthernFurSeal reproduce() {
+		
+		if (getSex() == Sex.MALE) {
+			System.out.println("Male " + getExtenedType() + " looks for Female " + getExtenedType());
+			return null;
+		} else {
+			if (getAge() > MATURITY) {
+					NorthernFurSeal babySeal = new NorthernFurSeal();
+					if (Math.random() > 0.6) {
+						babySeal.setSex(Sex.MALE);
+					}
+				return babySeal;
+			}
+		}
+		
+		System.out.println("Female " + getExtenedType() + " is not old enought.");
+		return null;
+	}
+
 	
 	/*
 	 * Fur seals feed mainly at night and may dive to depths of 600 feet (180 m) in search of small schooling fish and squid.

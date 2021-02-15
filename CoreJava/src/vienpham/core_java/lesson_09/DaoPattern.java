@@ -1,13 +1,21 @@
 package vienpham.core_java.lesson_09;
 
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-import vienpham.core_java.common.animal.*;
-import vienpham.core_java.common.animal.bird.*;
-import vienpham.core_java.common.animal.fish.*;
-import vienpham.core_java.common.animal.mammal.*;
-import vienpham.core_java.lesson_09.dao.*;
+import vienpham.core_java.common.animal.Animal;
+import vienpham.core_java.common.animal.RandomAnimalBuilder;
+import vienpham.core_java.common.animal.fish.AtlanticBluefinTuna;
+import vienpham.core_java.common.animal.fish.OceanicWhitetipShark;
+import vienpham.core_java.common.animal.fish.Swordfish;
+import vienpham.core_java.common.animal.fish.YellowfinTuna;
+import vienpham.core_java.common.animal.mammal.Lion;
+import vienpham.core_java.common.animal.marine_mammal.NorthernFurSeal;
+import vienpham.core_java.lesson_09.dao.AnimalDAO;
+import vienpham.core_java.lesson_09.dao.AnimalDaoFactory;
+import vienpham.core_java.lesson_09.dao.DaoFactory;
+import vienpham.core_java.lesson_09.dao.DataStoreNotFoundException;
 
 public class DaoPattern {
 	public void inClassWork() {

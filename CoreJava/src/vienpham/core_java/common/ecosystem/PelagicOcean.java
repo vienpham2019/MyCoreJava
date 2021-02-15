@@ -1,11 +1,19 @@
 package vienpham.core_java.common.ecosystem;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import vienpham.core_java.common.animal.*;
-import vienpham.core_java.common.animal.fish.*;
-import vienpham.core_java.common.animal.mammal.*;
+import vienpham.core_java.common.animal.Animal;
+import vienpham.core_java.common.animal.Carnivore;
+import vienpham.core_java.common.animal.Sex;
+import vienpham.core_java.common.animal.fish.AtlanticBluefinTuna;
+import vienpham.core_java.common.animal.fish.GreateWhiteShark;
+import vienpham.core_java.common.animal.fish.OceanicWhitetipShark;
+import vienpham.core_java.common.animal.fish.Swordfish;
+import vienpham.core_java.common.animal.fish.YellowfinTuna;
+import vienpham.core_java.common.animal.marine_mammal.MarineMammal;
 import vienpham.core_java.common.animal.marine_mammal.NorthernFurSeal;
 import vienpham.core_java.lesson_09.dao.AnimalDAO;
 import vienpham.core_java.lesson_09.dao.AnimalDaoFactory;
@@ -96,15 +104,14 @@ public class PelagicOcean extends Ecosystem {
 		
 		shark.move();
 		
+		for(Animal a : nearbyAnimals) {
+			a.move();
+		}
+		
 		Thread t = new Thread(new HuntingThread(shark , nearbyAnimals)); 
 		t.start();
 		System.out.println();
 		
-//		for(YellowfinTuna tuna : yellowfinTunaPride) {
-//			tuna.setFastSwimming(true);
-//			tuna.move(); 
-//		}
-//		
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {

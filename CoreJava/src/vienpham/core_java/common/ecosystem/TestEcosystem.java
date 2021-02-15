@@ -13,7 +13,7 @@ public class TestEcosystem {
 		PelagicOcean ocean = new PelagicOcean(); 
 		ocean.findNearbyAnimals();
 		ocean.greateWhiteSharkAreHungry();
-	
+		
 	}
 
 }

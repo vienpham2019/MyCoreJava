@@ -1,5 +1,5 @@
 package vienpham.core_java.common.animal;
 
 public enum AnimalType {
-	ZOO , MAMMAL , BIRD, FISH, REPTILE , DOMESTIC ;
+	ZOO , MAMMAL , BIRD, FISH, REPTILE , DOMESTIC , MARINE_MAMMAL; 
 }

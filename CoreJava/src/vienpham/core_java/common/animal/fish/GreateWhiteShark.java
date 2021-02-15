@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import vienpham.core_java.common.animal.Animal;
 import vienpham.core_java.common.animal.Sex;
 import vienpham.core_java.common.animal.marine_mammal.MarineMammal;
+import vienpham.core_java.common.animal.marine_mammal.NorthernFurSeal;
 import vienpham.core_java.common.ecosystem.EcosystemType;
 
 public class GreateWhiteShark extends Fish {
@@ -39,7 +40,6 @@ public class GreateWhiteShark extends Fish {
 		prey.add("cod");
 		prey.add("haddock");
 		prey.add("tuna");
-		prey.add("swordfish");
 		prey.add("shear water");
 		prey.add("seal");
 		prey.add("carrion"); // dead animal
@@ -120,7 +120,7 @@ public class GreateWhiteShark extends Fish {
 		}
 	}
 
-	// The greate white shark is viviparous with litters of 5 to 15 pups which
+	// The greate white shark is viviparous with litters of 2 to 10 pups which
 	// are born at a length of 65 to 75 cm (26 to 30 in)
 	// Overloading.
 	public List<GreateWhiteShark> reproduce(int number) {
@@ -179,7 +179,9 @@ public class GreateWhiteShark extends Fish {
 
 				if(target.getWeight() > getWeight() * 0.3) changeHealth(10); 
 				else changeHealth(5); 
-				System.out.println("health: " + getHealth());
+				if(Math.random() > 0.3) grow(); 
+				System.out.println(this + " health: " + getHealth());
+				
 			}
 			eat();
 		}
@@ -202,6 +204,7 @@ public class GreateWhiteShark extends Fish {
 		animalLoop: 
 		for (Animal animal : nearbyAnimals) {
 			for (String preyType : prey) {
+				if(animal.getAge() < animal.getMaxAge()) target = animal; 
 				if (getAge() < MATURITY) {
 					if (!(animal instanceof MarineMammal)) {
 
@@ -219,9 +222,14 @@ public class GreateWhiteShark extends Fish {
 					if(animal.getType().contains(preyType)) {
 						if(target == null) target = animal; 
 						if(animal instanceof MarineMammal) {
+							if(animal instanceof NorthernFurSeal && !((NorthernFurSeal) animal).getIsSwimming()) {
+								break animalLoop;
+							}
 							target = animal; 
 							break animalLoop; 
 						}
+						
+						if(target.getWeight() < animal.getWeight()) target = animal; 
 					}
 				}
 
@@ -249,16 +257,21 @@ public class GreateWhiteShark extends Fish {
 			int age = getAge(); 
 			if(target.getAge() <= target.getMaxAge()) {
 				
+				if(target.getType().contains("tuna")) probability -= 0.2; 
+				if(target.getType().contains("shark")) probability += 0.2; 
+				
 				if(age > MATURITY) probability -= 0.3; 
 				else probability -= 0.1; 
 				
-				if(target.getExtenedType().contains("baby")) probability -= 0.6;
-				else if(target.getExtenedType().contains("juvenile")) probability -= 0.3;
-				else probability -= 0.2;
+				if(target.getExtenedType().contains("baby")) probability -= 0.5;
+				else if(target.getExtenedType().contains("juvenile")) probability -= 0.4;
+				else probability -= 0.3;
 				
 			}else {
 				probability = 0; 
 			}
+			
+			if(probability < 0) probability = 0 ; 
 			
 			if(Math.random() > probability) {
 				
