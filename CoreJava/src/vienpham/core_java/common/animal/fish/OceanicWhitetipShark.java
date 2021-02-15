@@ -38,10 +38,9 @@ public class OceanicWhitetipShark extends Fish {
 		prey.add("haddock");
 		prey.add("butterfish");
 		prey.add("sea raven");
-		prey.add("yellowfin tuna");
-		prey.add("swordfish");
+		prey.add("tuna");
 		prey.add("shear water");
-		prey.add("northern fur seal");
+		prey.add("seal");
 		prey.add("carrion"); // dead animal
 		
 		setEcosystem(EcosystemType.PELAGIC_OCEAN);
@@ -150,10 +149,45 @@ public class OceanicWhitetipShark extends Fish {
 		System.out.println(this + " is hunting with the health of " + getHealth());
 		
 		// find prey
-//		Animal target = findPrey(nearbyAnimals); 
+		Animal target = findPrey(nearbyAnimals); 
 		
-		// catch prey 
+		if(target != null) {
+			changeHealth(-2); 
+			// catch prey 
+			if(catchPrey(target)) {
+				nearbyAnimals.remove(target); 
+				
+				if(target.getWeight() > getWeight() * 0.3) changeHealth(10); 
+				else changeHealth(5); 
+				if(Math.random() > 0.3) grow(); 
+				System.out.println(this + " health: " + getHealth());
+			}
+			eat(); 
+			
+		}
 		
+	}
+	
+	
+	public Animal findPrey(List<? extends Animal> nearbyAnimals) {
+				
+		for(Animal animal : nearbyAnimals) {
+			for(String preyType : prey) {
+				if(animal.getAge() < animal.getMaxAge()) return animal; 
+				if(animal.getType().contains(preyType)) {
+					
+					if(getAge() < MATURITY && 
+					  (animal.getExtenedType().contains("baby") || animal.getExtenedType().contains("juvenile")) 
+					  ){
+						return animal; 
+					}
+					
+					return animal; 
+					
+				}
+			}
+		}
+		return null ; 
 	}
 	
 	// Mammal,  Bird, Fish or Reptile method overrides

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import vienpham.core_java.common.animal.Animal;
 import vienpham.core_java.common.animal.Sex;
 import vienpham.core_java.common.ecosystem.EcosystemType;
 
@@ -145,10 +146,6 @@ public class NorthernFurSeal extends MarineMammal {
 		return null;
 	}
 
-	
-	/*
-	 * Fur seals feed mainly at night and may dive to depths of 600 feet (180 m) in search of small schooling fish and squid.
-	 */
 	
 	// Mammal,  Bird, Fish or Reptile method overrides
 	// Support interface
