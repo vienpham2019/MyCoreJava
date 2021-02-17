@@ -109,6 +109,7 @@ class RdbmsAnimalDAO implements AnimalDAO {
 		case "yellowfin tuna": newAnimal = new YellowfinTuna(); break; 
 		case "northern fur seal": newAnimal = new NorthernFurSeal(); break; 
 		case "atlantic bluefin tuna": newAnimal = new AtlanticBluefinTuna(); break; 
+		case "greate white shark": newAnimal = new GreateWhiteShark(); break; 
 		default: newAnimal = new Animal(); break; 
 		}
 		

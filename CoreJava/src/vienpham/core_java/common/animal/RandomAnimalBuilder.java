@@ -74,7 +74,7 @@ public class RandomAnimalBuilder {
 			
 			if(a == null) continue ; 
 //			Set the new animal to random age base on it age range 
-			int age = ThreadLocalRandom.current().nextInt(0 , a.getMaxAge()); 
+			int age = ThreadLocalRandom.current().nextInt(0 , a.getMaxAge() - 2); 
 			a.setAge(age);
 			
 //			Set the new animal's sex, default is FEMALE, so set half to MALE

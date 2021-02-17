@@ -147,7 +147,7 @@ public class GreateWhiteShark extends Fish {
 	@Override
 	public void hunt(List<? extends Animal> nearbyAnimals) {
 		// check for age
-		if (getAge() > MAX_AGE) {
+		if (getAge() > getMaxAge()) {
 			System.out.println(getExtenedType() + " is dead");
 			return;
 		}
@@ -180,10 +180,10 @@ public class GreateWhiteShark extends Fish {
 				if(target.getWeight() > getWeight() * 0.3) changeHealth(10); 
 				else changeHealth(5); 
 				if(Math.random() > 0.3) grow(); 
-				System.out.println(this + " health: " + getHealth());
 				
 			}
 			eat();
+			System.out.println(this + " health: " + getHealth());
 		}
 
 	}

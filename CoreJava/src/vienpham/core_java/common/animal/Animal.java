@@ -131,8 +131,8 @@ public class Animal extends Object implements Comparable<Animal> , Serializable 
 		if(this == other) return true; 
 		if(other == null) return false; 
 		boolean result = false;
-		System.out.println(this.getClass());
-		System.out.println(other.getClass());
+//		System.out.println(this.getClass());
+//		System.out.println(other.getClass());
 		if(other.getClass() == this.getClass()) {
 			Animal aRef = (Animal) other;
 			result = this.type.equalsIgnoreCase(aRef.type) && 

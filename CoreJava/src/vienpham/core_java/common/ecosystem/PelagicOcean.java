@@ -48,7 +48,7 @@ public class PelagicOcean extends Ecosystem {
 //	Variables section 	
 	public PelagicOcean() {
 		setEcosystem(EcosystemType.PELAGIC_OCEAN); 
-		useFileDAO(); 
+		useRDBMSDAO();
 		System.out.println();
 	}
 	
@@ -100,7 +100,7 @@ public class PelagicOcean extends Ecosystem {
 	}
 	
 	public void greateWhiteSharkAreHungry() {
-		GreateWhiteShark shark = new GreateWhiteShark(30); 
+		GreateWhiteShark shark = greateWhiteSharkPride.get(ThreadLocalRandom.current().nextInt(0 ,greateWhiteSharkPride.size())); 
 		
 		shark.move();
 		
@@ -161,6 +161,36 @@ public class PelagicOcean extends Ecosystem {
 			else if(a instanceof NorthernFurSeal) northernFurSealPride.add((NorthernFurSeal)a); 
 			
 			else if(a instanceof AtlanticBluefinTuna) atlanticBluefinTunaPride.add((AtlanticBluefinTuna)a); 
+			
+			else if(a instanceof GreateWhiteShark) greateWhiteSharkPride.add((GreateWhiteShark)a); 
+		}
+		
+	}
+	
+	private void useRDBMSDAO() {
+		
+		DaoFactory factory = new AnimalDaoFactory(); 
+		AnimalDAO dao = null; 
+		
+		try {
+			dao = factory.getDao("rdbms");
+		} catch (DataStoreNotFoundException e) {
+			System.out.println(e);
+			return; 
+		} 
+		
+		for(Animal a : dao.findAll()) {
+			if(a instanceof OceanicWhitetipShark) oceanicWhitetipSharkPride.add((OceanicWhitetipShark)a); 
+			
+			else if(a instanceof Swordfish) swordfishPride.add((Swordfish)a); 
+			
+			else if(a instanceof YellowfinTuna) yellowfinTunaPride.add((YellowfinTuna) a); 
+			
+			else if(a instanceof NorthernFurSeal) northernFurSealPride.add((NorthernFurSeal)a); 
+			
+			else if(a instanceof AtlanticBluefinTuna) atlanticBluefinTunaPride.add((AtlanticBluefinTuna)a); 
+			
+			else if(a instanceof GreateWhiteShark) greateWhiteSharkPride.add((GreateWhiteShark)a); 
 			
 		}
 		

@@ -6,12 +6,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import vienpham.core_java.common.animal.Animal;
 import vienpham.core_java.common.animal.RandomAnimalBuilder;
-import vienpham.core_java.common.animal.fish.AtlanticBluefinTuna;
-import vienpham.core_java.common.animal.fish.OceanicWhitetipShark;
-import vienpham.core_java.common.animal.fish.Swordfish;
-import vienpham.core_java.common.animal.fish.YellowfinTuna;
+import vienpham.core_java.common.animal.fish.*;
+
 import vienpham.core_java.common.animal.mammal.Lion;
-import vienpham.core_java.common.animal.marine_mammal.NorthernFurSeal;
+import vienpham.core_java.common.animal.marine_mammal.*;
 import vienpham.core_java.lesson_09.dao.AnimalDAO;
 import vienpham.core_java.lesson_09.dao.AnimalDaoFactory;
 import vienpham.core_java.lesson_09.dao.DaoFactory;
@@ -22,9 +20,9 @@ public class DaoPattern {
 		System.out.println(this.getClass().getSimpleName() + ".inClassWork():\n");
 		
 //		useMemoryDAO();
-		useFileDAO(); 
+//		useFileDAO(); 
 //		useRdbmsDAO(); 
-//		transferFilesToMySqlDb(); 
+		transferFilesToMySqlDb(); 
 		
 		System.out.println("===================================================================\n");
 	}
@@ -126,6 +124,17 @@ public class DaoPattern {
 //		for(Animal a : atlanticBluefinTunaPride) {
 //			dao.create(a);
 //		}
+// 	
+////	GreateWhiteShark
+//	List<Animal> greateWhiteSharkPride = (List<Animal>) new RandomAnimalBuilder(GreateWhiteShark.class).build(10); 
+//	int babyGreateWhiteShark = ThreadLocalRandom.current().nextInt(4,6); 
+//	for(int i = 0 ; i < babyGreateWhiteShark ; i ++) {
+//		greateWhiteSharkPride.add((Animal) new GreateWhiteShark()); 
+//	}
+//	
+//	for(Animal a : greateWhiteSharkPride) {
+//		dao.create(a);
+//	}
 			
 		
 		
@@ -133,7 +142,9 @@ public class DaoPattern {
 //		for(Animal shark : dao.findAll()) {
 //			dao.delete(shark);
 //		}
-//		
+		
+		
+		
 		System.out.println("--------------------------------------------------------------\n");
 		
 	}
