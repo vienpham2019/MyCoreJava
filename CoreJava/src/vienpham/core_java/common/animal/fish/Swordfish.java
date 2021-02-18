@@ -70,10 +70,8 @@ public class Swordfish extends Fish{
 	@Override 
 	// At a young age, they eat tiny zooplankton, and their prey increases in size as they do.
 	public void eat() {
-	}
-	
-	@Override 
-	public void sleep() {
+		if(getAge() == 0 && ( preyCaught == null || preyCaught.isEmpty() )) preyCaught = "tiny zooplankton"; 
+		super.eat(); 
 	}
 	
 	@Override 
@@ -83,6 +81,41 @@ public class Swordfish extends Fish{
 	 *  separated by as much as 10 m (33 ft) from a neighboring swordfish.
 	 */
 	public void move() {	
+		if (isFastSwimming()) {
+			super.move();
+			changeHealth(-3);
+		} else {
+			System.out.println(getExtenedType()
+					+ " constantly swim forward.");
+			changeHealth(-1);
+		}
+	}
+	
+	// Overload
+	/*
+	 * Females are able to reproduce between 4 and 5 years of age. 
+	 * Depending on their size, females can produce anywhere from 1 million to 29 million eggs. 
+	 */
+	public List<Swordfish> reproduce(int num) {
+		if (getSex() == Sex.MALE) {
+			System.out.println("Male " + getExtenedType() + " looks for Female " + getExtenedType());
+			return null;
+		} else {
+			if (getAge() > MATURITY) {
+				List<Swordfish> babySwordfishList = new ArrayList<>(); 
+					for(int i = 0 ; i < num ; i ++) {
+						Swordfish babySwordfish = new Swordfish(); 
+						if (Math.random() > 0.6) {
+							babySwordfish.setSex(Sex.MALE);
+						}
+						babySwordfishList.add(babySwordfish); 
+					}
+				return babySwordfishList; 
+			}
+		}
+		
+		System.out.println("Female " + getExtenedType() + " is not old enought.");
+		return null; 
 	}
 	
 	// Mammal,  Bird, Fish or Reptile method overrides

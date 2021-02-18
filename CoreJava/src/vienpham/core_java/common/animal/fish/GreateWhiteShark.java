@@ -9,6 +9,10 @@ import vienpham.core_java.common.animal.Sex;
 import vienpham.core_java.common.animal.marine_mammal.MarineMammal;
 import vienpham.core_java.common.animal.marine_mammal.NorthernFurSeal;
 import vienpham.core_java.common.ecosystem.EcosystemType;
+import vienpham.core_java.lesson_09.dao.AnimalDAO;
+import vienpham.core_java.lesson_09.dao.AnimalDaoFactory;
+import vienpham.core_java.lesson_09.dao.DaoFactory;
+import vienpham.core_java.lesson_09.dao.DataStoreNotFoundException;
 
 public class GreateWhiteShark extends Fish {
 	/*
@@ -77,13 +81,6 @@ public class GreateWhiteShark extends Fish {
 	}
 
 	// Animal method overrides
-	@Override
-	// As soon as the baby shark is born, they are ready to swim and hunt.
-	public void eat() {
-		if (getAge() == 0 && (preyCaught == null || preyCaught.isEmpty()))
-			preyCaught = "baby tuna";
-		super.eat();
-	}
 
 	@Override
 	// sharks are able to engage in periods of deep rest while still swim but do not
@@ -146,9 +143,21 @@ public class GreateWhiteShark extends Fish {
 
 	@Override
 	public void hunt(List<? extends Animal> nearbyAnimals) {
+		
+		DaoFactory factory = new AnimalDaoFactory(); 
+		AnimalDAO dao = null; 
+		
+		try {
+			dao = factory.getDao("rdbms");
+		} catch (DataStoreNotFoundException e) {
+			System.out.println(e);
+			return; 
+		} 
+		
 		// check for age
 		if (getAge() > getMaxAge()) {
 			System.out.println(getExtenedType() + " is dead");
+			dao.delete(this);
 			return;
 		}
 
@@ -172,18 +181,25 @@ public class GreateWhiteShark extends Fish {
 			
 			// catch prey
 			if(catchPrey(target)) {
-				nearbyAnimals.remove(target);
 				/*
 				 * sharks only needs to eat anywhere between 0.5 to 3 percent of its body weight a day.
 				 */
 
 				if(target.getWeight() > getWeight() * 0.3) changeHealth(10); 
 				else changeHealth(5); 
-				if(Math.random() > 0.3) grow(); 
+				if(Math.random() > 0.2) {
+					
+					grow(); 
+				}
+				
+				dao.delete((Animal)target);
+				nearbyAnimals.remove(target);
 				
 			}
 			eat();
-			System.out.println(this + " health: " + getHealth());
+			if(dao.update(this)) {
+				System.out.println(this + " health: " + getHealth());
+			};
 		}
 
 	}
@@ -201,8 +217,12 @@ public class GreateWhiteShark extends Fish {
 
 		Animal target = null; 
 		
+		System.out.println();
+		System.out.println(this.getType() + " sees: " );
+		
 		animalLoop: 
-		for (Animal animal : nearbyAnimals) {
+		for(Animal animal : nearbyAnimals) {
+			System.out.println("- " + animal+ " ");
 			for (String preyType : prey) {
 				if(animal.getAge() < animal.getMaxAge()) target = animal; 
 				if (getAge() < MATURITY) {
@@ -220,7 +240,11 @@ public class GreateWhiteShark extends Fish {
 
 				} else {
 					if(animal.getType().contains(preyType)) {
+						
 						if(target == null) target = animal; 
+						
+						if(animal instanceof GreateWhiteShark) continue; 
+						
 						if(animal instanceof MarineMammal) {
 							if(animal instanceof NorthernFurSeal && !((NorthernFurSeal) animal).getIsSwimming()) {
 								break animalLoop;
@@ -235,6 +259,8 @@ public class GreateWhiteShark extends Fish {
 
 			}
 		}
+		
+		System.out.println();
 
 		if(target == null) {
 			System.out.println(this + " cound not found prey");

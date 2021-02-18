@@ -1,5 +1,9 @@
 package vienpham.core_java.common.animal.fish;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import vienpham.core_java.common.animal.Sex;
 import vienpham.core_java.common.ecosystem.EcosystemType;
 
 public class YellowfinTuna extends Fish {
@@ -66,6 +70,8 @@ public class YellowfinTuna extends Fish {
 	 * As adults, they eat fairly large bony fishes and squids.
 	 */
 	public void eat() {
+		if(getAge() == 0 && ( preyCaught == null || preyCaught.isEmpty() )) preyCaught = "tiny zooplankton"; 
+		super.eat(); 
 	}
 	
 	@Override 
@@ -74,6 +80,7 @@ public class YellowfinTuna extends Fish {
 	 * Their can able to engage in periods of deep rest while still swim
 	 */
 	public void sleep() {
+		System.out.println(this + " in periods of deep rest while still swim.");
 	}
 	
 	@Override 
@@ -90,6 +97,28 @@ public class YellowfinTuna extends Fish {
 			System.out.println(getExtenedType() + " continuously swim forward with their mouths open to keep their blood oxygenated.");
 			changeHealth(-1); 
 		}
+	}
+	
+	public List<YellowfinTuna> reproduce(int num) {
+		if (getSex() == Sex.MALE) {
+			System.out.println("Male " + getExtenedType() + " looks for Female " + getExtenedType());
+			return null;
+		} else {
+			if (getAge() > MATURITY) {
+				List<YellowfinTuna> babyTunaList = new ArrayList<>(); 
+					for(int i = 0 ; i < num ; i ++) {
+						YellowfinTuna tunaBaby = new YellowfinTuna(); 
+						if (Math.random() > 0.6) {
+							tunaBaby.setSex(Sex.MALE);
+						}
+						babyTunaList.add(tunaBaby); 
+					}
+				return babyTunaList; 
+			}
+		}
+		
+		System.out.println("Female " + getExtenedType() + " is not old enought.");
+		return null; 
 	}
 	
 	

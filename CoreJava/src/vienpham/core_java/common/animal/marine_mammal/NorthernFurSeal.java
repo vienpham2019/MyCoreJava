@@ -135,7 +135,7 @@ public class NorthernFurSeal extends MarineMammal {
 		} else {
 			if (getAge() > MATURITY) {
 					NorthernFurSeal babySeal = new NorthernFurSeal();
-					if (Math.random() > 0.6) {
+					if (ThreadLocalRandom.current().nextBoolean()) {
 						babySeal.setSex(Sex.MALE);
 					}
 				return babySeal;

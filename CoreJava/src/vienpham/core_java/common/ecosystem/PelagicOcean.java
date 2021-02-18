@@ -118,10 +118,8 @@ public class PelagicOcean extends Ecosystem {
 			e.printStackTrace();
 		}
 		
-//		String food = shark.getPreyCaugth();
 		
-	}
-	
+	}	
 	
 	public void listPopulation () {
 		System.out.println("oceanicWhitetipSharkPride " + oceanicWhitetipSharkPride.size());
@@ -165,6 +163,7 @@ public class PelagicOcean extends Ecosystem {
 			else if(a instanceof GreateWhiteShark) greateWhiteSharkPride.add((GreateWhiteShark)a); 
 		}
 		
+		
 	}
 	
 	private void useRDBMSDAO() {
@@ -193,6 +192,7 @@ public class PelagicOcean extends Ecosystem {
 			else if(a instanceof GreateWhiteShark) greateWhiteSharkPride.add((GreateWhiteShark)a); 
 			
 		}
+		
 		
 	}
 

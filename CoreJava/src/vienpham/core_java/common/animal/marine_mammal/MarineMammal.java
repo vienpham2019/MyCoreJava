@@ -75,6 +75,7 @@ public class MarineMammal extends Animal implements Carnivore {
 				System.out.println(getExtenedType() + " has nothing to eat");
 			}else {
 				System.out.println(getExtenedType() + " easts a " + preyCaught);
+				if(Math.random() > 0.4) grow(); 
 				preyCaught = null; 
 			}
 		}

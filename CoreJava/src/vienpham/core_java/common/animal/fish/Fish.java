@@ -78,6 +78,7 @@ public abstract class Fish extends Animal implements Carnivore {
 			System.out.println(getExtenedType() + " has nothing to eat");
 		}else {
 			System.out.println(getExtenedType() + " easts a " + preyCaught);
+			if(ThreadLocalRandom.current().nextInt() > 0.6) grow(); 
 			preyCaught = null; 
 		}
 	}

@@ -1,8 +1,12 @@
 package vienpham.core_java.common.animal.fish;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import vienpham.core_java.common.animal.Animal;
+import vienpham.core_java.common.animal.Sex;
+import vienpham.core_java.common.animal.marine_mammal.NorthernFurSeal;
 import vienpham.core_java.common.ecosystem.EcosystemType;
 
 public class AtlanticBluefinTuna extends Fish {
@@ -98,18 +102,38 @@ public class AtlanticBluefinTuna extends Fish {
 	 *  they must constantly swim forward with their mouths slightly open in order to obtain sufficient oxygen from the water.
 	 */
 	public void move() {	
+		if (isFastSwimming()) {
+			super.move();
+			changeHealth(-3);
+		} else {
+			System.out.println(getExtenedType()
+					+ " constantly swim forward with their mouths slightly open in order to obtain sufficient oxygen from the water.");
+			changeHealth(-1);
+		}
 	}
 	
 	//Overloading 
 	//The female can release a large amount of eggs, sometimes releasing 2.6 million eggs per spawning
-	public AtlanticBluefinTuna reproduce() {
-		return new AtlanticBluefinTuna(); 
-	}
-
-	@Override
-	public void hunt(List<? extends Animal> target) {
-		// TODO Auto-generated method stub
+	public List<AtlanticBluefinTuna> reproduce(int num) {
+		if (getSex() == Sex.MALE) {
+			System.out.println("Male " + getExtenedType() + " looks for Female " + getExtenedType());
+			return null;
+		} else {
+			if (getAge() > MATURITY) {
+				List<AtlanticBluefinTuna> tunaBabyList = new ArrayList<>(); 
+					for(int i = 0 ; i < num ; i ++) {
+						AtlanticBluefinTuna tunaBaby = new AtlanticBluefinTuna(); 
+						if (Math.random() > 0.6) {
+							tunaBaby.setSex(Sex.MALE);
+						}
+						tunaBabyList.add(tunaBaby); 
+					}
+				return tunaBabyList; 
+			}
+		}
 		
+		System.out.println("Female " + getExtenedType() + " is not old enought.");
+		return null; 
 	}
 	
 }

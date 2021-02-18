@@ -19,39 +19,40 @@ import vienpham.core_java.common.animal.marine_mammal.NorthernFurSeal;
 import vienpham.core_java.common.ecosystem.EcosystemType;
 
 class RdbmsAnimalDAO implements AnimalDAO {
-	
-	private boolean debug = false; 
-	
+
+	private boolean debug = false;
+
 	@Override
 	public void setDebug(boolean in) {
-		debug = in; 
-	}
-	
-	private Connection mySQLConnection = null;
-	private String url = "jdbc:mysql://127.0.0.1:3306"; 
-	private String username = "ecosystem"; 
-	private String password = "Vp1721998"; 
-	
-	public RdbmsAnimalDAO() {
-		try {
-			mySQLConnection = DriverManager.getConnection(url, username , password);
-			System.out.println("MySQL connection extablished");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
+		debug = in;
 	}
 
-	private int count = 1000; 
+	private Connection mySQLConnection = null;
+	private String url = "jdbc:mysql://127.0.0.1:3306";
+	private String username = "ecosystem";
+	private String password = "Vp1721998";
+
+	public RdbmsAnimalDAO() {
+		try {
+			mySQLConnection = DriverManager.getConnection(url, username, password);
+//			System.out.println("MySQL connection extablished");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private int count = 1000;
+
 	@Override
 	public void create(Animal a) {
-		int key = ++count; 
+		int key = ++count;
 		a.setAnimalId(key);
-		create(key , a); 
+		create(key, a);
 	}
-	
-	private void create(int key , Animal a) {
+
+	private void create(int key, Animal a) {
 		try (Statement stmt = mySQLConnection.createStatement()) {
-            // Create a string that is a SQL query
+			// Create a string that is a SQL query
 			StringBuilder insert = new StringBuilder("INSERT INTO ecosystem.animals VALUES(");
 			insert.append(key + ", '");
 			insert.append(a.getType() + "', ");
@@ -60,7 +61,7 @@ class RdbmsAnimalDAO implements AnimalDAO {
 			insert.append(a.getSex() + "', ");
 			insert.append(a.getHealth() + ", '");
 			insert.append(a.getEcosystem() + "');");
-            // Execute the query and wait for the result set
+			// Execute the query and wait for the result set
 			int result = stmt.executeUpdate(insert.toString());
 			if (result == 1) {
 				System.out.println(result + " rows inserted: " + a);
@@ -81,11 +82,11 @@ class RdbmsAnimalDAO implements AnimalDAO {
 		System.out.println("Finding all the animals in the database");
 		List<Animal> animalList = new ArrayList<>();
 		try (Statement stmt = mySQLConnection.createStatement()) {
-            // Create a string that is a SQL query
-			String query = "SELECT * FROM ecosystem.animals";
-            // Execute the query and wait for the result set
+			// Create a string that is a SQL query
+			String query = "SELECT * FROM ecosystem.animals ;";
+			// Execute the query and wait for the result set
 			ResultSet rs = stmt.executeQuery(query);
-            // Iterate throw the result set printing out the desired information
+			// Iterate throw the result set printing out the desired information
 			while (rs.next()) {
 				Animal a = createAnimalClass(rs.getString("animal_type"));
 				a.setAnimalId(rs.getInt("animal_id"));
@@ -96,35 +97,84 @@ class RdbmsAnimalDAO implements AnimalDAO {
 				a.setEcosystem(EcosystemType.valueOf(rs.getString("ecosystem")));
 				animalList.add(a);
 			}
-		} catch (SQLException se) {se.printStackTrace(); }
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
 		return animalList;
 	}
-	
+
 	private Animal createAnimalClass(String type) {
-		Animal newAnimal = null; 
-		
-		switch(type) {
-		case "oceanic whitetip shark": newAnimal = new OceanicWhitetipShark(); break; 
-		case "swordfish": newAnimal = new Swordfish(); break; 
-		case "yellowfin tuna": newAnimal = new YellowfinTuna(); break; 
-		case "northern fur seal": newAnimal = new NorthernFurSeal(); break; 
-		case "atlantic bluefin tuna": newAnimal = new AtlanticBluefinTuna(); break; 
-		case "greate white shark": newAnimal = new GreateWhiteShark(); break; 
-		default: newAnimal = new Animal(); break; 
+		Animal newAnimal = null;
+
+		switch (type) {
+		case "oceanic whitetip shark":
+			newAnimal = new OceanicWhitetipShark();
+			break;
+		case "swordfish":
+			newAnimal = new Swordfish();
+			break;
+		case "yellowfin tuna":
+			newAnimal = new YellowfinTuna();
+			break;
+		case "northern fur seal":
+			newAnimal = new NorthernFurSeal();
+			break;
+		case "atlantic bluefin tuna":
+			newAnimal = new AtlanticBluefinTuna();
+			break;
+		case "greate white shark":
+			newAnimal = new GreateWhiteShark();
+			break;
+		default:
+			newAnimal = new Animal();
+			break;
 		}
-		
-		return newAnimal; 
+
+		return newAnimal;
 	}
 
 	@Override
 	public boolean update(Animal a) {
-		// TODO Auto-generated method stub
+		try (Statement stmt = mySQLConnection.createStatement()) {
+
+			String query = 	"UPDATE ecosystem.animals " + 
+							"SET age = " + a.getAge() + ", weight = " + a.getWeight() + ", health = " + a.getHealth() +
+							" WHERE animal_id = " + a.getAnimalId() + ";";
+			
+			int rs = stmt.executeUpdate(query);
+			System.out.println();
+			if (rs == 1) {
+				System.out.println(
+						a + " has been successfully update from database with an ID: " + a.getAnimalId());
+				return true; 
+			} else {
+				System.out.println(a + " is not exist in database.");
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+
 		return false;
 	}
 
 	@Override
 	public void delete(Animal a) {
-		// TODO Auto-generated method stub
+		try (Statement stmt = mySQLConnection.createStatement()) {
+
+			String query = "DELETE FROM ecosystem.animals WHERE animal_id = " + a.getAnimalId() + ";";
+			int rs = stmt.executeUpdate(query);
+			System.out.println();
+			if (rs == 1) {
+				System.out.println(
+						a + " has been successfully delete from database with an ID: " + a.getAnimalId() + "\n");
+			} else {
+				System.out.println(a + " is not exist in database.\n");
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
 
 	}
 
@@ -132,10 +182,11 @@ class RdbmsAnimalDAO implements AnimalDAO {
 	public void close() {
 		try {
 			mySQLConnection.close();
-			if(debug) System.out.println("MySQL connection closed");
+			if (debug)
+				System.out.println("MySQL connection closed");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 
 }
