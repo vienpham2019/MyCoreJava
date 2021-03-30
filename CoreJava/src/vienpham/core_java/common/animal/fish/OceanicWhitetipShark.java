@@ -91,7 +91,7 @@ public class OceanicWhitetipShark extends Fish {
 			} catch (InterruptedException e) { e.printStackTrace(); }
 			changeHealth(1);
 		}
-		System.out.println(getHealth() + "\n");
+		System.out.println(this + " health: " + getHealth() + "\n");
 	}
 	
 	@Override 
@@ -170,22 +170,34 @@ public class OceanicWhitetipShark extends Fish {
 	
 	
 	public Animal findPrey(List<? extends Animal> nearbyAnimals) {
-				
+		Animal target = null; 
+		
+		findPreyLoop: 
 		for(Animal animal : nearbyAnimals) {
 			for(String preyType : prey) {
-				if(animal.getAge() < animal.getMaxAge()) return animal; 
+				if(animal.getAge() < animal.getMaxAge()) {
+					target = animal; 
+					break findPreyLoop; 
+				}
 				if(animal.getType().contains(preyType)) {
 					
 					if(getAge() < MATURITY && 
 					  (animal.getExtenedType().contains("baby") || animal.getExtenedType().contains("juvenile")) 
 					  ){
-						return animal; 
+						target = animal; 
+						break findPreyLoop; 
 					}
-					
-					return animal; 
 					
 				}
 			}
+		}
+		
+		if(target == null) {
+			System.out.println(this + " cound not found prey");
+			this.preyFound = null; 
+		}else {
+			System.out.println(this + " selected a " + target);
+			this.preyFound = target.getExtenedType(); 
 		}
 		return null ; 
 	}

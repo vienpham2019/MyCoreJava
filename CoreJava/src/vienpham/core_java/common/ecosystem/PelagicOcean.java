@@ -9,6 +9,7 @@ import vienpham.core_java.common.animal.Animal;
 import vienpham.core_java.common.animal.Carnivore;
 import vienpham.core_java.common.animal.Sex;
 import vienpham.core_java.common.animal.fish.AtlanticBluefinTuna;
+import vienpham.core_java.common.animal.fish.Fish;
 import vienpham.core_java.common.animal.fish.GreateWhiteShark;
 import vienpham.core_java.common.animal.fish.OceanicWhitetipShark;
 import vienpham.core_java.common.animal.fish.Swordfish;
@@ -66,18 +67,20 @@ public class PelagicOcean extends Ecosystem {
 	public void dawnBreaks() {
 		System.out.println("Its just before dawn on the ocean");
 		
-		for(OceanicWhitetipShark s : oceanicWhitetipSharkPride) {
-			if(s.getAge() < 4) {
-				System.out.println(s + ": ");
-				s.sleep(); 
-			}else if(s.getSex() == Sex.MALE && s.getWeight() > 650) {
-				System.out.println(s + " watch over ther fish");
+		for(Animal a : nearbyAnimals) {
+			if(a.getAge() < 4) {
+				System.out.println(a + ": ");
+				a.sleep(); 
+			}else{
+				if(a instanceof Fish)
+					((Fish)a).hunt(); 
+				
+				if(a instanceof NorthernFurSeal) {
+					((NorthernFurSeal)a).setIsSwimming(true);
+					((NorthernFurSeal) a).hunt(nearbyAnimals); 
+				}
+				
 			}
-		}
-		
-		System.out.println("Mother and baby seal: ");
-		for(NorthernFurSeal s : northernFurSealPride) {
-			s.sleep();
 		}
 	}
 

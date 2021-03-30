@@ -92,7 +92,6 @@ public class NorthernFurSeal extends MarineMammal {
 			}
 			changeHealth(1);
 		}
-		System.out.println(getHealth() + "\n");
 	}
 	
 	@Override 

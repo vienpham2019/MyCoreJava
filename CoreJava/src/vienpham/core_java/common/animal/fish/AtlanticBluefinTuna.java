@@ -93,6 +93,14 @@ public class AtlanticBluefinTuna extends Fish {
 	 */
 	public void sleep() {
 		System.out.println(getExtenedType() + " in periods of deep rest while still swimming with eyeys open.");
+		while (getHealth() < 3) {
+			System.out.print(getHealth() + " ");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) { e.printStackTrace(); }
+			changeHealth(1);
+		}
+		System.out.println(this + " health: " + getHealth() + "\n");
 	}
 	
 	@Override 

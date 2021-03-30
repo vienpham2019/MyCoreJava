@@ -96,7 +96,7 @@ public class GreateWhiteShark extends Fish {
 			}
 			changeHealth(1);
 		}
-		System.out.println(getHealth() + "\n");
+		System.out.println(this + " health: " + getHealth() + "\n");
 	}
 
 	@Override

@@ -81,8 +81,15 @@ public class YellowfinTuna extends Fish {
 	 */
 	public void sleep() {
 		System.out.println(this + " in periods of deep rest while still swim.");
+		while (getHealth() < 3) {
+			System.out.print(getHealth() + " ");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) { e.printStackTrace(); }
+			changeHealth(1);
+		}
+		System.out.println(this + " health: " + getHealth() + "\n");
 	}
-	
 	@Override 
 	/*
 	 * The tunas lack the ability to do so while stopped, 
