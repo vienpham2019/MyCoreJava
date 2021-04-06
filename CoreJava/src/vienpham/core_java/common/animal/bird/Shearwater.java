@@ -78,7 +78,6 @@ public class Shearwater extends Raptor {
 	}	
 	
 	
-	// Animal method overrides
 	// Mammal,  Bird, Fish or Reptile method overrides
 	@Override 
 	public boolean canFly() {return true;}
@@ -87,7 +86,6 @@ public class Shearwater extends Raptor {
 	@Override 
 	public boolean canSwim() {return true; }
 
-	@Override
 	public void hunt(List<? extends Animal> target) {
 		// TODO Auto-generated method stub
 		

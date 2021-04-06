@@ -22,7 +22,7 @@ public class Lesson10 {
 		
 		User [] userList = {student, teacher}; 
 		for(User u : userList) {
-			u.work();
+			u.work("this");
 		}
 		
 	}
