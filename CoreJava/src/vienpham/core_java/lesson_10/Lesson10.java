@@ -19,9 +19,10 @@ public class Lesson10 {
 		
 		Student student = new Student(); 
 		Teacher teacher = new Teacher(); 
+		User user = new User(); 
 		
-		User [] userList = {student, teacher}; 
-		for(User u : userList) {
+		UserInterface [] userList = {student, teacher , user}; 
+		for(UserInterface u : userList) {
 			u.work("this");
 		}
 		

@@ -1,6 +1,6 @@
 package vienpham.core_java.lesson_10;
 
-public class Student extends User{
+public class Student implements UserInterface {
 
 	@Override 
 	public void work(String s) {
