@@ -23,7 +23,10 @@ public class Lesson10 {
 		
 		UserInterface [] userList = {student, teacher , user}; 
 		for(UserInterface u : userList) {
-			u.work("this");
+			if(u instanceof User) u.work("on website project.");
+			else if(u instanceof Teacher) u.work("Math");
+			else if(u instanceof Student) u.work("English");
+			else u.work("this");
 		}
 		
 	}
