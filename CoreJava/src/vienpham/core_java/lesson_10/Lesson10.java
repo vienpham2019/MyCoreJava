@@ -33,9 +33,15 @@ public class Lesson10 {
 			else u.work("this");
 		}
 		
-		NumericTest isEvent = (int x) -> x % 2 == 0 ; 
+		NumericTest isEvent = (x) -> x % 2 == 0 ; 
+		NumericTest isOdd = (x) -> x % 2 != 0; 
+		NumericTest isNegative = (x) -> x < 0; 
+		NumericTest isFibNumber = (x) -> x == fib(x); 
 		
 		System.out.println(isEvent.computeTest(6)); 
+		System.out.println(isOdd.computeTest(5));
+		System.out.println(isNegative.computeTest(2));
+		System.out.println(isFibNumber.computeTest(6));
 		
 	}  
 
