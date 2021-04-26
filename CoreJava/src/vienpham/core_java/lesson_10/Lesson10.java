@@ -2,6 +2,10 @@ package vienpham.core_java.lesson_10;
 
 import org.junit.Assert;
 
+interface NumericTest{
+	public abstract boolean computeTest(int n); 
+}
+
 public class Lesson10 {
 
 	public static void main(String[] args) {
@@ -29,7 +33,11 @@ public class Lesson10 {
 			else u.work("this");
 		}
 		
-	}
+		NumericTest isEvent = (int x) -> x % 2 == 0 ; 
+		
+		System.out.println(isEvent.computeTest(6)); 
+		
+	}  
 
 	public static int fib(int n) {
 		if (n == 0)
